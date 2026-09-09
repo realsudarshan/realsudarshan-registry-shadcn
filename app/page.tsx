@@ -1,69 +1,63 @@
 import * as React from "react"
 import { OpenInV0Button } from "@/components/open-in-v0-button"
+import { InstallCommand } from "@/components/install-command"
 import { HelloWorld } from "@/registry/new-york/blocks/hello-world/hello-world"
 import { ExampleForm } from "@/registry/new-york/blocks/example-form/example-form"
 import PokemonPage from "@/registry/new-york/blocks/complex-component/page"
 import { ExampleCard } from "@/registry/new-york/blocks/example-with-css/example-card"
-// This page displays items from the custom registry.
-// You are free to implement this with your own design as needed.
+import registry from "@/registry.json"
+import { SimpleBadge } from "@/registry/new-york/blocks/simple-badge/simple-badge"
+
+const REGISTRY_ITEMS = [
+  { name: "hello-world", component: <HelloWorld /> },
+  { name: "example-form", component: <ExampleForm /> },
+  { name: "complex-component", component: <PokemonPage /> },
+  { name: "example-with-css", component: <ExampleCard /> },
+  { name: "simple-badge", component: <SimpleBadge /> },
+]
 
 export default function Home() {
   return (
     <div className="max-w-3xl mx-auto flex flex-col min-h-svh px-4 py-8 gap-8">
       <header className="flex flex-col gap-1">
-        <h1 className="text-3xl font-bold tracking-tight">Custom Registry</h1>
+        <h1 className="text-3xl font-bold tracking-tight">{registry.name}</h1>
         <p className="text-muted-foreground">
           A custom registry for distributing code using shadcn.
         </p>
       </header>
+
       <main className="flex flex-col flex-1 gap-8">
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm text-muted-foreground sm:pl-3">
-              A simple hello world component
-            </h2>
-            <OpenInV0Button name="hello-world" className="w-fit" />
-          </div>
-          <div className="flex items-center justify-center min-h-[400px] relative">
-            <HelloWorld />
-          </div>
-        </div>
+        {REGISTRY_ITEMS.map(({ name, component }) => {
+          const item = registry.items.find((i) => i.name === name)
+          const command = `npx shadcn add ${registry.homepage}/r/${name}.json`
 
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm text-muted-foreground sm:pl-3">
-              A contact form with Zod validation.
-            </h2>
-            <OpenInV0Button name="example-form" className="w-fit" />
-          </div>
-          <div className="flex items-center justify-center min-h-[500px] relative">
-            <ExampleForm />
-          </div>
-        </div>
+          return (
+            <div
+              key={name}
+              className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative"
+            >
+              <div className="flex flex-col gap-1 sm:pl-3">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-base font-semibold">
+                    {item?.title ?? name}
+                  </h2>
+                  <OpenInV0Button name={name} className="w-fit" />
+                </div>
+                {item?.description && (
+                  <p className="text-sm text-muted-foreground">
+                    {item.description}
+                  </p>
+                )}
+              </div>
 
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm text-muted-foreground sm:pl-3">
-              A complex component showing hooks, libs and components.
-            </h2>
-            <OpenInV0Button name="complex-component" className="w-fit" />
-          </div>
-          <div className="flex items-center justify-center min-h-[400px] relative">
-            <PokemonPage />
-          </div>
-        </div>
+              <InstallCommand command={command} />
 
-        <div className="flex flex-col gap-4 border rounded-lg p-4 min-h-[450px] relative">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm text-muted-foreground sm:pl-3">
-              A login form with a CSS file.
-            </h2>
-            <OpenInV0Button name="example-with-css" className="w-fit" />
-          </div>
-          <div className="flex items-center justify-center min-h-[400px] relative">
-            <ExampleCard />
-          </div>
-        </div>
+              <div className="flex items-center justify-center min-h-[350px] relative">
+                {component}
+              </div>
+            </div>
+          )
+        })}
       </main>
     </div>
   )
