@@ -1,6 +1,7 @@
 import * as React from "react"
 import { OpenInV0Button } from "@/components/open-in-v0-button"
 import { InstallCommand } from "@/components/install-command"
+import { Github } from "lucide-react"
 import { HelloWorld } from "@/registry/new-york/blocks/hello-world/hello-world"
 import { ExampleForm } from "@/registry/new-york/blocks/example-form/example-form"
 import PokemonPage from "@/registry/new-york/blocks/complex-component/page"
@@ -41,7 +42,18 @@ export default function Home() {
                   <h2 className="text-base font-semibold">
                     {item?.title ?? name}
                   </h2>
-                  <OpenInV0Button name={name} className="w-fit" />
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={`https://github.com/realsudarshan/realsudarshan-registry-shadcn/blob/main/docs/${name}.md`}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`View ${item?.title ?? name} documentation on GitHub`}
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-md border text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+                    >
+                      <Github className="h-4 w-4" />
+                    </a>
+                    <OpenInV0Button name={name} className="w-fit" />
+                  </div>
                 </div>
                 {item?.description && (
                   <p className="text-sm text-muted-foreground">
