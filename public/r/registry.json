@@ -75,6 +75,17 @@
           "type": "registry:component"
         }
       ]
+    },{
+       "name": "simple-badge",
+  "type": "registry:component",
+  "title": "Simple Badge",
+  "description": "A minimal badge component.",
+  "files": [
+    {
+      "path": "registry/new-york/blocks/simple-badge/simple-badge.tsx",
+      "type": "registry:component"
+    }
+  ]
     }
   ]
 }

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "simple-badge",
+  "title": "Simple Badge",
+  "description": "A minimal badge component.",
+  "files": [
+    {
+      "path": "registry/new-york/blocks/simple-badge/simple-badge.tsx",
+      "content": "export function SimpleBadge() {\r\n  return (\r\n    <span className=\"inline-flex items-center rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground\">\r\n      New\r\n    </span>\r\n  )\r\n}",
+      "type": "registry:component"
+    }
+  ],
+  "type": "registry:component"
+}
